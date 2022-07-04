@@ -1,21 +1,17 @@
-import { ethers } from 'ethers';
-import { gql, request } from 'graphql-request';
+import { ethers } from 'ethers'
+import { gql, request } from 'graphql-request'
 
 const provider = new ethers.providers.StaticJsonRpcProvider(
   process.env.WEB3_PROVIDER
 );
 
 const GET_DOMAIN_BY_NAME = gql`
-  query getDomains($name: String) {
+  query getDomains($name: String, $label: String) {
     domains(where: { name: $name }) {
-      isMigrated
       createdAt
-      resolver {
-        texts
-        coinTypes
-        contentHash
-        addr {
-          id
+      owner {
+        registrations(where: { labelName: $label }) {
+          registrationDate
         }
       }
     }
@@ -23,8 +19,10 @@ const GET_DOMAIN_BY_NAME = gql`
 `;
 
 export async function retrieveProfile(ensName) {
+  const labels = ensName.split('.');
+
   const [graphPromise, resolverPromise] = await Promise.allSettled([
-    request(process.env.GRAPH_URI, GET_DOMAIN_BY_NAME, { name: ensName }),
+    request(process.env.GRAPH_URI, GET_DOMAIN_BY_NAME, { name: ensName, label: labels[0] }),
     provider.getResolver(ensName),
   ]);
   if (graphPromise.status === 'rejected' || !graphPromise.value.domains[0]) {
@@ -39,17 +37,14 @@ export async function retrieveProfile(ensName) {
   const graphData = graphPromise.value;
   const resolver = resolverPromise.value;
 
-  const texts = graphData.domains[0].resolver.texts;
-  const textValuePromises = await Promise.allSettled(
-    texts.map((key) => resolver.getText(key))
-  );
-  const kv = {};
-  texts.forEach((text, i) => {
-    const dataPromise = textValuePromises[i];
-    if (dataPromise.status === 'fulfilled') {
-      kv[text] = dataPromise.value;
-    }
-  });
+  const isDotETH = labels.length === 2 && labels[1] === 'eth';
+  const date = isDotETH ? {
+    label: "REGISTERED",
+    value: new Date(parseInt(graphData.domains[0].owner.registrations[0].registrationDate) * 1000),
+  } : {
+    label: "CREATED",
+    value: new Date(parseInt(graphData.domains[0].createdAt) * 1000),
+  }
 
-  return { name: resolver.name, address: resolver.address, records: kv };
+  return { name: resolver.name, date, };
 }
