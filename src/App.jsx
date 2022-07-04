@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css, ThemeProvider } from 'styled-components';
 import { Button, ThorinGlobalStyles, lightTheme } from '@ensdomains/thorin';
 import { toBlob } from 'html-to-image';
 import { saveAs } from 'file-saver';
+import { isElementReady } from './utils/isElementReady';
 import ENSCard from './Card';
 import SearchProfile from './Search';
 
@@ -26,6 +27,16 @@ const roundCardEdges = () => {
 
 const App = () => {
   const [profile, setProfile] = useState();
+  const [ render, setRender ] = useState();
+  useEffect(() => {
+    isElementReady('#ensCard').then((ensCard) => {
+      toBlob(ensCard, { style: { borderRadius: '0 !important' } }).then(
+        function (blob) {
+          setRender(URL.createObjectURL(blob));
+        }
+      );
+    });
+  }, [profile]);
   const shareCard = () => {
     const ensCard = document.getElementById('ensCard');
     toBlob(ensCard, { style: { borderRadius: '0 !important' } })
@@ -55,8 +66,9 @@ const App = () => {
   return (
     <ThemeProvider theme={lightTheme}>
       <ThorinGlobalStyles />
-      <SearchProfile setProfile={setProfile} />
-      {profile ? <ENSCard profile={profile} /> : ''}
+      <SearchProfile setProfile={setProfile} setRender={setRender} />
+      {(!render && profile) ? <ENSCard profile={profile} /> : ''}
+      { (render && profile) && <img src={render} width="580mm"/> }
       <ButtonStack>
         <Button
           onClick={shareCard}

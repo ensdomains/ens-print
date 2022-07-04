@@ -37,7 +37,7 @@ const TextStack = styled.div(
   `
 );
 
-const SearchProfile = ({ setProfile }) => {
+const SearchProfile = ({ setProfile, setRender }) => {
   const [isLoading, setLoading] = useState(false);
   const inputENSRef = useRef();
 
@@ -46,6 +46,7 @@ const SearchProfile = ({ setProfile }) => {
     const _name = inputENSRef.current.value;
     if (!_name) return;
     setProfile(null);
+    setRender(null);
     setLoading(true);
     const profile = await retrieveProfile(_name);
     console.log('profile', profile);
