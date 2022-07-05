@@ -9,5 +9,6 @@ export default defineConfig({
       GRAPH_URI: "https://api.thegraph.com/subgraphs/name/tateb/enssubdomaincount",
       WEB3_PROVIDER: "https://web3metadata.ens.domains/v1/mainnet"
     },
-  }
+  },
+  base: '/ens-print/'
 });
