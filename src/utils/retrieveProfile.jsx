@@ -37,10 +37,13 @@ export async function retrieveProfile(ensName) {
   const graphData = graphPromise.value;
   const resolver = resolverPromise.value;
 
+  if (!resolver) return;
+
   const isDotETH = labels.length === 2 && labels[1] === 'eth';
-  const date = isDotETH ? {
+  const registrationDate = graphData.domains[0].owner.registrations[0]?.registrationDate;
+  const date = (isDotETH && registrationDate) ? {
     label: "REGISTERED",
-    value: new Date(parseInt(graphData.domains[0].owner.registrations[0].registrationDate) * 1000),
+    value: new Date(parseInt(registrationDate) * 1000),
   } : {
     label: "CREATED",
     value: new Date(parseInt(graphData.domains[0].createdAt) * 1000),

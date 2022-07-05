@@ -1,7 +1,7 @@
-import { Avatar, Typography } from '@ensdomains/thorin'
-import { useMemo } from 'react'
-import styled, { css } from 'styled-components'
-import logo from "./logo.svg"
+import { Avatar, Typography } from '@ensdomains/thorin';
+import { useMemo } from 'react';
+import styled, { css } from 'styled-components';
+import logo from './logo.svg';
 
 const Container = styled.div(
   () => css`
@@ -12,7 +12,7 @@ const Container = styled.div(
     display: flex;
     flex-direction: column;
   `
-)
+);
 
 const AvatarWrapper = styled.div(
   () => css`
@@ -39,7 +39,7 @@ const TopElement = styled.div(
       height: 14mm;
     }
   `
-)
+);
 
 const Name = styled(Typography)(
   () => css`
@@ -49,7 +49,7 @@ const Name = styled(Typography)(
       opacity: 0.6;
     }
   `
-)
+);
 
 const MiddleElement = styled.div(
   () => css`
@@ -59,7 +59,7 @@ const MiddleElement = styled.div(
     padding: 0 6mm;
     flex-grow: 1;
   `
-)
+);
 
 const BottomElement = styled.div(
   () => css`
@@ -70,7 +70,7 @@ const BottomElement = styled.div(
     flex-direction: column;
     margin-bottom: 6mm;
   `
-)
+);
 
 const DateLabel = styled(Typography)(
   () => css`
@@ -79,7 +79,7 @@ const DateLabel = styled(Typography)(
     opacity: 0.6;
     color: hsl(347, 6%, 13%);
   `
-)
+);
 
 const DateValue = styled(Typography)(
   () => css`
@@ -88,8 +88,7 @@ const DateValue = styled(Typography)(
     color: hsl(347, 6%, 13%);
     line-height: 28pt;
   `
-)
-
+);
 
 let baseAvatarURL = 'https://metadata.ens.domains/mainnet/avatar';
 
@@ -103,7 +102,7 @@ const ENSCard = ({ profile }) => {
     const maxFontSize = 46;
     const maxWidth = 320;
 
-    let fontSize = maxFontSize
+    let fontSize = maxFontSize;
 
     ctx.font = `${fontSize}pt Satoshi`;
     let width = ctx.measureText(name).width;
@@ -111,10 +110,10 @@ const ENSCard = ({ profile }) => {
     if (width > maxWidth) {
       let decrement = 1;
       while (width > maxWidth) {
-        console.log(width)
+        console.log(width);
         fontSize -= decrement;
         if (fontSize < minFontSize) {
-          fontSize = minFontSize
+          fontSize = minFontSize;
           break;
         }
         ctx.font = `${fontSize}pt Satoshi`;
@@ -129,21 +128,28 @@ const ENSCard = ({ profile }) => {
         }
       }
     }
-    return fontSize
-  }, [name])
+    return fontSize;
+  }, [name]);
 
   return (
-    <Container id="ensCard">
+    <Container>
       <TopElement>
         <Typography>My name is</Typography>
         <img src={logo} />
       </TopElement>
       <MiddleElement>
-        <Name style={{ fontSize: `${fontSize}pt` }}>{name.split('.').slice(0, -1)}<span>.{name.split('.').slice(-1)}</span></Name>
+        <Name style={{ fontSize: `${fontSize}pt` }}>
+          {name.split('.').slice(0, -1)}
+          <span>.{name.split('.').slice(-1)}</span>
+        </Name>
         <AvatarWrapper>
-            {name && (
-              <Avatar label={name} src={`${baseAvatarURL}/${name}`} />
-            )}
+          {name && (
+            <Avatar
+              id="ensCardAvatar"
+              label={name}
+              src={`${baseAvatarURL}/${name}`}
+            />
+          )}
         </AvatarWrapper>
       </MiddleElement>
       <BottomElement>
@@ -151,7 +157,7 @@ const ENSCard = ({ profile }) => {
         <DateValue>{date.value.toLocaleDateString('en-GB')}</DateValue>
       </BottomElement>
     </Container>
-  )
-}
+  );
+};
 
 export default ENSCard;
