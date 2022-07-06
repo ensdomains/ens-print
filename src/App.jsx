@@ -41,7 +41,7 @@ const App = () => {
             }),
           ],
         })
-        .then(() => alert('Share was successful.'))
+        .then(() => {})
         .catch((error) => {
           // suppress if canceled
           if (error.includes('canceled'))return;
