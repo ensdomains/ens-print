@@ -42,7 +42,11 @@ const App = () => {
           ],
         })
         .then(() => alert('Share was successful.'))
-        .catch((error) => alert('Sharing failed' + error));
+        .catch((error) => {
+          // suppress if canceled
+          if (error.includes('canceled'))return;
+          alert('Sharing failed' + error);
+        });
     } catch {
       console.log(`Your system doesn't support sharing files.`);
       saveAs(blob);
