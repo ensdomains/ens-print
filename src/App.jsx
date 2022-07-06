@@ -61,12 +61,12 @@ const App = () => {
         ''
       )}
       {render && profile && (
-        <img id="ensCardRender" src={render} width="580mm" />
+        <img id="ensCardRender" src={render} width="100%" style={{maxWidth: "580mm"}} />
       )}
       <ButtonStack>
         <Button
           onClick={shareCard}
-          style={{ visibility: profile ? 'visible' : 'hidden' }}
+          style={{ visibility: render ? 'visible' : 'hidden' }}
         >
           Print
         </Button>
