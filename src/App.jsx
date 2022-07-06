@@ -35,9 +35,7 @@ const App = () => {
     try {
       navigator
         .share({
-          title: ENSName,
-          text: '',
-          file: [
+          files: [
             new File([blob], 'ens.png', {
               type: blob.type,
             }),
