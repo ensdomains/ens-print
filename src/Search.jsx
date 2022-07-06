@@ -37,7 +37,13 @@ const TextStack = styled.div(
   `
 );
 
-const SearchProfile = ({ setProfile, setRender }) => {
+const appStatus = (isLoading, isFetching) => {
+  if (isFetching) return `Fetching...`;
+  if (isLoading) return `Searching...`;
+  return "Search";
+}
+
+const SearchProfile = ({ setProfile, setRender, isFetching }) => {
   const [isLoading, setLoading] = useState(false);
   const inputENSRef = useRef();
 
@@ -63,12 +69,13 @@ const SearchProfile = ({ setProfile, setRender }) => {
           label="ENS Name"
           placeholder="nick.eth"
           autoComplete="off"
+          autoFocus
           required
         />
         <TextStack></TextStack>
         <ButtonStack>
-          <Button type="submit" loading={isLoading}>
-            Search{isLoading ? 'ing...' : ''}
+          <Button type="submit" loading={isLoading || isFetching}>
+            { appStatus(isLoading, isFetching) }
           </Button>
         </ButtonStack>
       </Container>

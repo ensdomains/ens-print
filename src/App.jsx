@@ -58,9 +58,12 @@ const App = () => {
       <SearchProfile
         setProfile={setProfile}
         setRender={setRender}
+        isFetching={ !render && profile }
       />
       {!render && profile ? (
-        <ENSCard profile={profile} />
+        <div style={{ position: 'absolute', top: '-1000px'}}>
+          <ENSCard profile={profile} />
+        </div>
       ) : (
         ''
       )}
