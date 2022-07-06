@@ -7,7 +7,7 @@ const Container = styled.div(
   () => css`
     width: 145mm;
     height: 105mm;
-    padding: 7.2mm 2.2mm;
+    padding: 0 0 7.2mm;
     background-color: white;
     display: flex;
     flex-direction: column;

@@ -1676,7 +1676,7 @@ Error generating stack: `+o.message+`
  */var q_=N.exports,G_=Symbol.for("react.element"),W_=Symbol.for("react.fragment"),K_=Object.prototype.hasOwnProperty,X_=q_.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner,Y_={key:!0,ref:!0,__self:!0,__source:!0};function _v(e,t,r){var n,i={},o=null,s=null;r!==void 0&&(o=""+r),t.key!==void 0&&(o=""+t.key),t.ref!==void 0&&(s=t.ref);for(n in t)K_.call(t,n)&&!Y_.hasOwnProperty(n)&&(i[n]=t[n]);if(e&&e.defaultProps)for(n in t=e.defaultProps,t)i[n]===void 0&&(i[n]=t[n]);return{$$typeof:G_,type:e,key:o,ref:s,props:i,_owner:X_.current}}lu.Fragment=W_;lu.jsx=_v;lu.jsxs=_v;ch.exports=lu;const Ct=ch.exports.jsx,yn=ch.exports.jsxs,Q_=Q.div(()=>I`
     width: 145mm;
     height: 105mm;
-    padding: 7.2mm 2.2mm;
+    padding: 0 0 7.2mm;
     background-color: white;
     display: flex;
     flex-direction: column;
