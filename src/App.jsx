@@ -65,7 +65,7 @@ const App = () => {
         ''
       )}
       {render && profile && (
-        <img id="ensCardRender" src={render} width="100%" style={{maxWidth: "580mm"}} />
+        <img id="ensCardRender" src={render} width="100%" style={{maxWidth: "580px"}} />
       )}
       <ButtonStack>
         <Button
