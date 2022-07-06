@@ -62,6 +62,7 @@ const SearchProfile = ({ setProfile, setRender }) => {
           ref={inputENSRef}
           label="ENS Name"
           placeholder="nick.eth"
+          autoComplete="off"
           required
         />
         <TextStack></TextStack>
