@@ -37,7 +37,7 @@ const App = () => {
         .share({
           title: ENSName,
           text: '',
-          files: [
+          file: [
             new File([blob], 'ens.png', {
               type: blob.type,
             }),
