@@ -139,7 +139,7 @@ const ENSCard = ({ profile }) => {
       </TopElement>
       <MiddleElement>
         <Name style={{ fontSize: `${fontSize}pt` }}>
-          {name.split('.').slice(0, -1)}
+          {name.substring(0, name.lastIndexOf('.'))}
           <span>.{name.split('.').slice(-1)}</span>
         </Name>
         <AvatarWrapper>
