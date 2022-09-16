@@ -37,9 +37,10 @@ const TextStack = styled.div(
   `
 );
 
-const appStatus = (isLoading, isFetching) => {
+const appStatus = (isLoading, isFetching, inputENSRef) => {
   if (isFetching) return `Fetching...`;
   if (isLoading) return `Searching...`;
+  if (inputENSRef.current) inputENSRef.current.value = "";
   return "Search";
 }
 
@@ -49,8 +50,11 @@ const SearchProfile = ({ setProfile, setRender, isFetching }) => {
 
   const searchENS = async (event) => {
     event.preventDefault();
-    const _name = inputENSRef.current.value;
+    let _name = inputENSRef.current.value;
     if (!_name) return;
+    if (!_name.endsWith('.eth')) {
+      _name = _name + '.eth';
+    }
     setProfile(null);
     setRender(null);
     setLoading(true);
@@ -58,7 +62,7 @@ const SearchProfile = ({ setProfile, setRender, isFetching }) => {
     console.log('profile', profile);
     setProfile(profile);
     setLoading(false);
-    event.target.reset();
+    // event.target.reset();
   };
 
   return (
@@ -75,7 +79,7 @@ const SearchProfile = ({ setProfile, setRender, isFetching }) => {
         <TextStack></TextStack>
         <ButtonStack>
           <Button type="submit" loading={isLoading || isFetching}>
-            { appStatus(isLoading, isFetching) }
+            { appStatus(isLoading, isFetching, inputENSRef) }
           </Button>
         </ButtonStack>
       </Container>
