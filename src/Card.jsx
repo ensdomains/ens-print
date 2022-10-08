@@ -146,7 +146,7 @@ const ENSCard = ({ profile }) => {
             borderRadius: '10px',
           }}
         >
-          <Name style={{ fontSize: `${fontSize}pt` }}>
+          <Name style={{ fontSize: `${fontSize}pt`, whiteSpace: "nowrap" }}>
             {name.substring(0, name.lastIndexOf('.'))}
             <span>.{name.split('.').slice(-1)}</span>
           </Name>
