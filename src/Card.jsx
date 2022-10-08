@@ -2,6 +2,7 @@ import { Avatar, Typography } from '@ensdomains/thorin';
 import { useMemo } from 'react';
 import styled, { css } from 'styled-components';
 import logo from './logo.svg';
+import devcon from './devcon.svg';
 
 const Container = styled.div(
   () => css`
@@ -132,16 +133,24 @@ const ENSCard = ({ profile }) => {
   }, [name]);
 
   return (
-    <Container>
+    <Container style={{ backgroundImage: `url(${devcon})` }}>
       <TopElement>
         <Typography>My name is</Typography>
         <img src={logo} />
       </TopElement>
       <MiddleElement>
-        <Name style={{ fontSize: `${fontSize}pt` }}>
-          {name.substring(0, name.lastIndexOf('.'))}
-          <span>.{name.split('.').slice(-1)}</span>
-        </Name>
+        <div
+          style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.5)',
+            padding: '5px 15px',
+            borderRadius: '10px',
+          }}
+        >
+          <Name style={{ fontSize: `${fontSize}pt` }}>
+            {name.substring(0, name.lastIndexOf('.'))}
+            <span>.{name.split('.').slice(-1)}</span>
+          </Name>
+        </div>
         <AvatarWrapper>
           {name && (
             <Avatar
@@ -153,8 +162,17 @@ const ENSCard = ({ profile }) => {
         </AvatarWrapper>
       </MiddleElement>
       <BottomElement>
-        <DateLabel>{date.label}</DateLabel>
-        <DateValue>{date.value.toLocaleDateString('en-GB')}</DateValue>
+        <div
+          style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.5)',
+            padding: '10px 15px',
+            borderRadius: '10px',
+            width: 'fit-content',
+          }}
+        >
+          <DateLabel>{date.label}</DateLabel>
+          <DateValue>{date.value.toLocaleDateString('en-GB')}</DateValue>
+        </div>
       </BottomElement>
     </Container>
   );
