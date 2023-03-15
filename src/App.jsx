@@ -61,7 +61,7 @@ const App = () => {
         isFetching={ !render && profile }
       />
       {!render && profile ? (
-        <div style={{ position: 'absolute', top: '-1000px'}}>
+        <div>
           <ENSCard profile={profile} />
         </div>
       ) : (
