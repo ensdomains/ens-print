@@ -2,7 +2,7 @@ import { Avatar, Typography } from '@ensdomains/thorin';
 import { useMemo } from 'react';
 import styled, { css } from 'styled-components';
 import cardTemplate from './card.svg';
-import dubai from './dubai.png';
+import tokyo from './blue-bg.png';
 
 const Container = styled.div(
   (props) => css`
@@ -125,7 +125,7 @@ const ENSCard = ({ profile }) => {
               alt={name}
               src={`${baseAvatarURL}/${name}`}
               onError={(e) => {
-                e.currentTarget.src = dubai
+                e.currentTarget.src = tokyo
               }}
               width="550"
             />
