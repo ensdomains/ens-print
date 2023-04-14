@@ -1,43 +1,25 @@
 import { Avatar, Typography } from '@ensdomains/thorin';
 import { useMemo } from 'react';
 import styled, { css } from 'styled-components';
-import logo from './logo.svg';
+import cardTemplate from './card.svg';
+import tokyo from './blue-bg.png';
 
 const Container = styled.div(
-  () => css`
-    width: 145mm;
-    height: 105mm;
+  (props) => css`
+    width: 159mm;
+    height: 238mm;
     padding: 4.8mm 0 7.2mm;
-    background-color: white;
+    background-image: url(${(props) => props.imgUrl});
     display: flex;
     flex-direction: column;
+    z-index: 1;
   `
 );
 
 const AvatarWrapper = styled.div(
   () => css`
-    width: 32mm;
-  `
-);
-
-const TopElement = styled.div(
-  () => css`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 6mm;
-    width: 100%;
-    height: 25.2mm;
-    background-color: hsl(197, 100%, 50%);
-    div {
-      font-size: 32pt !important;
-      font-weight: bold !important;
-      color: white;
-      margin-top: -2mm;
-    }
-    img {
-      height: 14mm;
-    }
+    margin-top: 40px;
+    z-index: -1;
   `
 );
 
@@ -45,6 +27,7 @@ const Name = styled(Typography)(
   () => css`
     font-weight: bold;
     color: hsl(347, 6%, 13%);
+    line-height: 30mm;
     span {
       opacity: 0.6;
     }
@@ -53,6 +36,7 @@ const Name = styled(Typography)(
 
 const MiddleElement = styled.div(
   () => css`
+    height: 200px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -64,9 +48,9 @@ const MiddleElement = styled.div(
 const BottomElement = styled.div(
   () => css`
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-    padding: 0 6mm;
+    padding: 20mm;
     flex-direction: column;
     margin-bottom: 6mm;
   `
@@ -132,27 +116,27 @@ const ENSCard = ({ profile }) => {
   }, [name]);
 
   return (
-    <Container>
-      <TopElement>
-        <Typography>My name is</Typography>
-        <img src={logo} />
-      </TopElement>
+    <Container imgUrl={cardTemplate}>
       <MiddleElement>
-        <Name style={{ fontSize: `${fontSize}pt` }}>
-          {name.substring(0, name.lastIndexOf('.'))}
-          <span>.{name.split('.').slice(-1)}</span>
-        </Name>
         <AvatarWrapper>
           {name && (
-            <Avatar
+            <img
               id="ensCardAvatar"
-              label={name}
+              alt={name}
               src={`${baseAvatarURL}/${name}`}
+              onError={(e) => {
+                e.currentTarget.src = tokyo
+              }}
+              width="550"
             />
           )}
         </AvatarWrapper>
       </MiddleElement>
       <BottomElement>
+        <Name style={{ fontSize: `${fontSize}pt` }}>
+          {name.substring(0, name.lastIndexOf('.'))}
+          <span>.{name.split('.').slice(-1)}</span>
+        </Name>
         <DateLabel>{date.label}</DateLabel>
         <DateValue>{date.value.toLocaleDateString('en-GB')}</DateValue>
       </BottomElement>
