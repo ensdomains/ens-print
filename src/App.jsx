@@ -18,7 +18,7 @@ const App = () => {
   const [render, setRender] = useState();
   useEffect(() => {
       isElementReady('#ensCardAvatar').then((avatar) => {
-        const card = avatar.parentElement.parentElement.parentElement.parentElement;
+        const card = avatar.parentElement.parentElement.parentElement;
         avatar.onload = () => printElement(card)
         avatar.onerror = () => setTimeout(() => printElement(card), 1000);
       });
