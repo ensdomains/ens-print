@@ -7,7 +7,7 @@ export default defineConfig({
   define: {
     'process.env': {
       GRAPH_URI: "https://api.thegraph.com/subgraphs/name/ensdomains/ens",
-      WEB3_PROVIDER: "https://web3metadata.ens.domains/v1/mainnet"
+      WEB3_PROVIDER: "https://rpc.ankr.com/eth"
     },
   },
   base: '/ens-print/'
