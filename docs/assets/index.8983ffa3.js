@@ -1691,7 +1691,7 @@ Error generating stack: `+o.message+`
     display: flex;
     justify-content: center;
     img {
-      width: 88mm;
+      width: 90mm;
       height: auto;
     }
   `),tS=Y(Yr)(()=>R`
